@@ -6,22 +6,23 @@ import './App.css'
 
 class App extends PureComponent {
     state = {
-        data: [
+        data: JSON.parse(localStorage.getItem('data'))||([
             {
                 id: 0,
-                text: "数据内容",
+                text: "Double click to edit text",
                 done: false
             }, {
                 id: 1,
-                text: "数据内容2",
-                done: true
+                text: "Click right bottom button",
+                done: false
             }, {
                 id: 2,
-                text: "数据内容3",
-                done: false
+                text: "Clear item",
+                done: true
             }
-        ]
+        ])
     }
+
 
     //add text in list, using in Create component
     addData = (text) => {
@@ -78,6 +79,9 @@ class App extends PureComponent {
 
     render() {
         let { data } = this.state
+        localStorage.setItem('data',JSON.stringify(data))
+        console.log()
+
         return (<div id="todoapp" >
             <div className="title">
                 <h1>Todo list</h1>

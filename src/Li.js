@@ -7,16 +7,16 @@ class Li extends PureComponent {
     }
 
     //copy value from props to it's own state
-    static getDerivedStateFromProps(props, state){
-        if(!state.editing){ 
+    static getDerivedStateFromProps(props, state) {
+        if (!state.editing) {
             state.val = props.data.text
         }
         return true;
     }
-    
+
     //get focus when user double click on item
-    componentDidUpdate(prevProps,prevState){
-        if(this.state.editing&&!prevState.editing){
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.editing && !prevState.editing) {
             this.state.ref.current.focus()
         }
     }
@@ -26,7 +26,7 @@ class Li extends PureComponent {
         let { data, changeDone, deleteData, editText } = this.props
 
         return (
-            <li 
+            <li
                 className={editing ? 'editing' : ''}
                 onDoubleClick={() => {
                     this.setState({
@@ -48,7 +48,7 @@ class Li extends PureComponent {
                         />
                         <div
                             className="todo-content"
-                            >{data.text}</div>
+                        >{data.text}</div>
                         <span
                             className="todo-destroy"
                             onClick={() => {
@@ -64,19 +64,27 @@ class Li extends PureComponent {
                             ref={ref}
                             className="todo-input"
                             type="text"
-                            value = {val}
-                            onChange= {(e)=>{
+                            value={val}
+                            onChange={(e) => {
                                 this.setState({
-                                    val:e.target.value
+                                    val: e.target.value
                                 })
                             }}
-                            onBlur={()=>{
-                                editText(data.id,val)
+                            onBlur={() => {
+                                editText(data.id, val)
                                 this.setState({
-                                    editing:false
+                                    editing: false
                                 })
-                            }
-                            }
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.keyCode === 13) {
+                                    editText(data.id, val)
+                                    this.setState({
+                                        editing: false
+                                    })
+                                }
+                            }}
+
                         />
                     </div>
                 </div>

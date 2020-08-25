@@ -10,15 +10,12 @@ class State extends PureComponent {
                 <span className="word">{unDone.length > 1 ? " items" : " item"} left.</span>
             </span>
             <span className="todo-clear">
-                {done.length>0&&<button onClick={()=>{
+                {done.length > 0 && <button onClick={() => {
                     removeDone()
-                }
-                }>
+                }}>
                     Clear {done.length} completed {done.length > 1 ? 'items' : 'item'}
                 </button>}
-                
             </span>
-
         </div>)
     }
 }
